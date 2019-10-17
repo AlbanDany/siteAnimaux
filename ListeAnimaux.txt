@@ -1,5 +1,18 @@
+Critère : Insecte / Mammifères terrestre / Mammifère aquatique / Reptile / Poissons
 -Araigné Goliath
 -Crabe cocotier
 -Fourmi pistolet
 -Crevette pistolet
 -Tortue Alligator
+-Araignée gladiateur
+
+NOTE DANGEROSITE: 
+Peut tuer un homme ?
+Blesser un homme ?
+Resistance ?
+Rapidité ? 
+Furtivité ?
+Peur ?
+Repartition ? >60% 
+Intelligence ?
+Unique ? (Compétence)
