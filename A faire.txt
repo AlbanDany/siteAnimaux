@@ -1,0 +1,5 @@
+- Base de donnée a créer
+- Liste à compléter
+- Design à faire
+- Trouver les ressources (photos, vidéos) pour chaque entité
+- 
