@@ -1,7 +1,4 @@
-<!DOCTYPE html>
 <?php
-
-//$bdd = new PDO('mysql:host=localhost;dbname=siteanimaux;charset=utf8', 'root', '');
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=siteanimaux;charset=utf8', 'root', '');
@@ -24,9 +21,8 @@ $reqAnimal-> execute(array(
 		'taille' => $taille,
 ));
 
-$letalite = $_POST['letal'];
+
 //Requete insérant les données dans la table dangerosite
-$letal = $_POST['letal'];
 
 $reqDanger = $bdd->prepare('INSERT INTO dangerosite(letal, blesser, offensif, resistance, furtivite, peur, repartition, intelligence, unique) VALUES(:letal, :blesser, :offensif, :resistance, :furtivite, :peur, :repartition, :intelligence, :unique)');
 $reqDanger -> execute(array(
@@ -36,7 +32,7 @@ $reqDanger -> execute(array(
 		'taille' => $taille,
 ));
 
-	echo $letalite;
+	if($_POST['letalAnimal'] = "oui" ){echo "okay"; }
 	echo 'Votre nom est '.$_POST['nom'].' origine '.$_POST['origine'];
 
 ?>
