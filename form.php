@@ -10,6 +10,8 @@ catch (Exception $e)
 {
         die('Erreur : ' . $e->getMessage());
 }
+
+//Requete insérant les données dans la table animal
 $nom = $_POST['nom'];
 $origine = $_POST['origine'];
 $taille = $_POST['taille'];
@@ -22,7 +24,8 @@ $reqAnimal-> execute(array(
 		'taille' => $taille,
 ));
 
-
+$letalite = $_POST['letal'];
+//Requete insérant les données dans la table dangerosite
 $letal = $_POST['letal'];
 
 $reqDanger = $bdd->prepare('INSERT INTO dangerosite(letal, blesser, offensif, resistance, furtivite, peur, repartition, intelligence, unique) VALUES(:letal, :blesser, :offensif, :resistance, :furtivite, :peur, :repartition, :intelligence, :unique)');
@@ -33,6 +36,7 @@ $reqDanger -> execute(array(
 		'taille' => $taille,
 ));
 
+	echo $letalite;
 	echo 'Votre nom est '.$_POST['nom'].' origine '.$_POST['origine'];
 
 ?>
