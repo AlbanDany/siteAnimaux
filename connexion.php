@@ -1,9 +1,5 @@
 <html>
 	<link rel="stylesheet" href="connexion.css">
-	<?php if (isset ($_GET["message"]))
-	{
-		echo $_GET["message"];
-	} ?>
 	<form action="formConnexion.php" method="post">
 		<fieldset>
 				<table>
@@ -15,8 +11,17 @@
 						<td>Mot de passe</td>
 						<td><input type="password" name="mdp" /></td>
 					</tr>
-					<tr><td><input type="submit" value="Connexion"></td></tr>
+					<tr>
+						<td><input type="submit" value="Connexion"></td>
+					</tr>
+					<tr>
+					<td>	<?php if (isset ($_GET["message"]))
+					{
+						echo $_GET["message"];
+					} ?></td>
+					</tr>
 				</table>
 		</fieldset>
 	</form>
+	
 </html>
