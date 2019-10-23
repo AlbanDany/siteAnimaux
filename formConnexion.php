@@ -1,26 +1,30 @@
 <?php
-
-	$mysqli = new mysqli('127.0.0.1', 'root', '', 'siteanimaux');
-if ($mysqli->connect_errno) {
-    echo "Désolé, le site web subit des problèmes.";
-    echo "Error: Échec d'établir une connexion MySQL, voici pourquoi : \n";
-    echo "Errno: " . $mysqli->connect_errno . "\n";
-    echo "Error: " . $mysqli->connect_error . "\n";
-    exit;
-}
+	
+require_once 'connexionbdd.php';
 
 $user = $_POST['user'];
-$mdp = $_POST['mdp'];
+//$mdp = password_hash('"'.$_POST['mdp'].'"', PASSWORD_BCRYPT);
 
-$sql = 'SELECT mdp  FROM utilisateur WHERE nom="'.$_POST['user'].'"';
+
+$sql = 'SELECT nom,mdp FROM utilisateur WHERE nom="'.$_POST['user'].'"';
 $result = $mysqli->query($sql) or die($mysqli->error);
-$mdpbdd = mysqli_fetch_array($result,MYSQLI_NUM);
-	
-if (isset($_POST['mdp']) AND $_POST['mdp'] == $mdpbdd[0]){
-	echo "hello there";
+$mdpbdd = mysqli_fetch_array($result,MYSQLI_ASSOC);
+//echo $mdpbdd['mdp'];
+if (empty($_POST['user']) || empty($_POST['mdp']) ) //Oublie d'un champ
+{
+	$message = "Vous devez remplir tous les champs";
+}
+else if ($user == $mdpbdd['nom']){
+	if (password_verify ($_POST['mdp'], $mdpbdd['mdp'])){
+		$message =  "hello there";
+		}
+	else{
+		$message =  "Mauvais mot de passe";	
+	}
 }
 else{
-	echo "Mauvais mot de passe";	
+	$message = "Mauvais utilisateur";
 }
 
+header("Location: connexion.php?message=$message");
 ?>

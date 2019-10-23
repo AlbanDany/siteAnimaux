@@ -1,5 +1,9 @@
 <html>
 	<link rel="stylesheet" href="connexion.css">
+	<?php if (isset ($_GET["message"]))
+	{
+		echo $_GET["message"];
+	} ?>
 	<form action="formConnexion.php" method="post">
 		<fieldset>
 				<table>
