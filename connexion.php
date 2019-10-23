@@ -12,13 +12,14 @@
 						<td><input type="password" name="mdp" /></td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="Connexion"></td>
+						<td><input type="submit" value="Inscription"></td>
 					</tr>
 					<tr>
 					<td>	<?php if (isset ($_GET["message"]))
 					{
 						echo $_GET["message"];
-					} ?></td>
+					} ?>
+					</td>
 					</tr>
 				</table>
 		</fieldset>

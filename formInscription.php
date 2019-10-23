@@ -9,13 +9,14 @@
 	if (empty($_POST['utilisateur']) || empty($_POST['motdepasse']) ) //Oublie d'un champ
 	{
 		$message = "Vous devez remplir tous les champs";
+		header("Location: inscription.php?message=$message");
 	}
 	else {
 		
 		
 		$result = $mysqli->query($sql) or die($mysqli->error);
-		$message = "Utilisateur inscrit";
+		header("Location: index.php");
 	}		
 
-	header("Location: inscription.php?message=$message"); //Revoie direct a la page de connexion
+	
 ?>
