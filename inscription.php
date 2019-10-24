@@ -12,7 +12,7 @@
 						<td><input type="password" name="motdepasse" /></td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="Connexion"></td>
+						<td><input type="submit" value="S'inscrire"></td>
 					</tr>
 					<tr>
 						<td><?php session_start(); 
