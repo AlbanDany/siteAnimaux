@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset ($_COOKIE["User"])){
-	echo '<h1>Bienvenue "'.$_COOKIE['User'].'" </h1>
+if (isset ($_SESSION['User'])){
+	echo '<h1>Bienvenue "'.$_SESSION['User'].'" </h1>
 	<a href="deconnexion.php"> Déconnexion </a>';
 }
 else{

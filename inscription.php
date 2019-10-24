@@ -14,6 +14,12 @@
 					<tr>
 						<td><input type="submit" value="Connexion"></td>
 					</tr>
+					<tr>
+						<td><?php session_start(); 
+							if (isset($_SESSION['erreur'])){
+								echo $_SESSION['erreur'];
+							}?></td>
+					</tr>
 				</table>
 		</fieldset>
 	</form>

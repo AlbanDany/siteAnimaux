@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html>
 	<link rel="stylesheet" href="connexion.css">
 	<form action="formConnexion.php" method="post">
@@ -12,12 +13,12 @@
 						<td><input type="password" name="mdp" /></td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="Inscription"></td>
+						<td><input type="submit" value="Inscription" name="btnConnexion"></td>
 					</tr>
 					<tr>
-					<td>	<?php if (isset ($_GET["message"]))
+					<td>	<?php if (isset ($_SESSION['message']))
 					{
-						echo $_GET["message"];
+							echo $_SESSION['message'];
 					} ?>
 					</td>
 					</tr>

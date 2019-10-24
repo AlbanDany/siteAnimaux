@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$mysqli = new mysqli('127.0.0.1', 'root', '', 'siteanimaux');
 if ($mysqli->connect_errno) {
     echo "Désolé, le site web subit des problèmes.";
