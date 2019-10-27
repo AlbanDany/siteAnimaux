@@ -10,6 +10,17 @@
 					<tr>
 						<td>Entrer un mot de passe</td>
 						<td><input type="password" name="motdepasse" /></td>
+
+					</tr>
+<tr>
+						<td>Confirmer votre mot de passe </td>
+						<td><input type="password" name="mdpConfirm" /></td>
+
+					</tr>
+<tr>
+						<td>Entrer votre adresse mail</td>
+						<td><input type="email" name="adresseMail" /></td>
+
 					</tr>
 					<tr>
 						<td><input type="submit" value="S'inscrire"></td>
