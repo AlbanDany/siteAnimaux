@@ -1,15 +1,17 @@
 <?php
-session_destroy();
-session_start();	
+	
 require_once 'connexionbdd.php';
 
 $user = test_input($_POST['user']);
 //$mdp = password_hash('"'.$_POST['mdp'].'"', PASSWORD_BCRYPT);
 
 
-$sql = 'SELECT nom,mdp,actif FROM utilisateur WHERE nom="'.$user.'"';
+$sql = 'SELECT nom,mdp,actif,dateDebut FROM utilisateur WHERE nom="'.$user.'"';
 $result = $mysqli->query($sql) or die($mysqli->error);
 $mdpbdd = mysqli_fetch_array($result,MYSQLI_ASSOC);
+$date = date_create($mdpbdd['dateDebut']);
+$dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
+$dateJour= date_create(date('Y-m-d'));
 //setcookie("User", $_POST['user']);
 $_SESSION['User'] = $user;
 
@@ -20,6 +22,10 @@ if (empty($user) || empty($_POST['mdp']) ) //Oublie d'un champ
 	header("Location: connexion.php");
 	
 }
+else if ($dateJour > $dateFin){ //Le mot de passe a plus de 3 mois
+			$_SESSION['message'] = "Mot de passe expiré";
+			header("Location: nouveaumdp.php");
+		}
 else if ($user == $mdpbdd['nom'] && $mdpbdd['actif'] == 1){ //L'utilisateur est correct
 	if (password_verify ($_POST['mdp'], $mdpbdd['mdp'])){ // Le mot de passe est correct
 		header("Location: index.php");
@@ -45,6 +51,12 @@ else if ($mdpbdd['actif'] == 0)
 	  $data = stripslashes($data);
 	  $data = htmlentities($data);
 	  return $data;
+	}
+	
+	function test_date($date){		
+		
+		
+		
 	}
 
 	

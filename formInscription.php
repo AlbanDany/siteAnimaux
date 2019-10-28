@@ -8,13 +8,18 @@
 	$actif = 0;
 	$id = null;
 	$key = gen_cle();
-	$dateJour= ("");
-	$sqlCheck = 'SELECT nom, email FROM utilisateur WHERE nom = "'.$user.'" OR email= "'.$email.'"'; //Permet de récupérer user et email si ils sont pareils
+	$idUser = 
+	$dateJour= date("Y-m-d");
+	$sqlCheck = 'SELECT nom, email,idUser FROM utilisateur WHERE nom = "'.$user.'" OR email= "'.$email.'"'; //Permet de récupérer user et email si ils sont pareils
 	$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
 	$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
 	
-	$query = $mysqli->prepare('INSERT INTO utilisateur (idUser, nom, mdp, idBestiaire, email,confirmKey,actif,dateDebut,dateFin) VALUES (?,?,?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
-	$query->bind_param('sssssssdd',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
+	$idUser = $data['idUser'];
+	$query = $mysqli->prepare('INSERT INTO utilisateur (idUser, nom, mdp, idBestiaire, email,confirmKey,actif,dateDebut) VALUES (?,?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
+	$query->bind_param('ssssssss',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
+	
+	$queryMdp = $mysqli->prepare('INSERT INTO motdepasse (idMotdepase, idUser, mdp1,mdp2,mdp3,mdp4,mdp5) VALUES (?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
+	$queryMdp->bind_param('ssssssss',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
 	
 	if (empty($user) || empty($_POST['motdepasse']) || empty($email) ) //Oubli d'un champs
 	{
@@ -39,10 +44,14 @@
 	}
 	else //Si l'utilisateur n'existe pas, l'email n'est pas utilisé, et les mdp correspodent 
 	{	
+	
 		//$result = $mysqli->query($sql) or die($mysqli->error);
 		$query->execute(); // On execute la requete créée plus haut
 		$query->close();
-		mail('albandany1@gmail.com',"hey", "ca va");
+		$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
+		$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
+		$queryMdp->execute();
+		$queryMdp->close();
 		$_SESSION['message'] = "Inscription réussie, veuillez vous connecter";
 		header("Location: connexion.php");
 	}
@@ -60,8 +69,7 @@
 			$temp = mt_rand(0,9);
 			$key .= $temp;
 		}
-		return $key;
-		
+		return $key;		
 	}
 	
 
