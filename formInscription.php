@@ -8,18 +8,24 @@
 	$actif = 0;
 	$id = null;
 	$key = gen_cle();
-	$idUser = 
+	$mdp2 = $mdp;
+	$mdp3 = $mdp2;
+	$mdp4 = $mdp3;
+	$mdp5 = $mdp4;
+	
 	$dateJour= date("Y-m-d");
 	$sqlCheck = 'SELECT nom, email,idUser FROM utilisateur WHERE nom = "'.$user.'" OR email= "'.$email.'"'; //Permet de récupérer user et email si ils sont pareils
 	$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
 	$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
-	
-	$idUser = $data['idUser'];
+	$idUser = 1;
 	$query = $mysqli->prepare('INSERT INTO utilisateur (idUser, nom, mdp, idBestiaire, email,confirmKey,actif,dateDebut) VALUES (?,?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
 	$query->bind_param('ssssssss',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
 	
-	$queryMdp = $mysqli->prepare('INSERT INTO motdepasse (idMotdepase, idUser, mdp1,mdp2,mdp3,mdp4,mdp5) VALUES (?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
-	$queryMdp->bind_param('ssssssss',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
+	// $queryuser = $mysqli->prepare('SELECT idUser FROM utilisateur WHERE nom = ?'); 
+	// $queryuser->bind_param('i', $user); 
+	
+	$queryMdp = $mysqli->prepare('INSERT INTO motdepasse (idMotdepasse, idUser, mdp1,mdp2,mdp3,mdp4,mdp5) VALUES (?,?,?,?,?,?,?)');
+	$queryMdp->bind_param('iisssss',$id, $idUser, $mdp,$mdp2, $mdp3, $mdp4, $mdp5); // On rentre les paramètres : id correspond a une valeur NULL
 	
 	if (empty($user) || empty($_POST['motdepasse']) || empty($email) ) //Oubli d'un champs
 	{
@@ -48,11 +54,9 @@
 		//$result = $mysqli->query($sql) or die($mysqli->error);
 		$query->execute(); // On execute la requete créée plus haut
 		$query->close();
-		$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
-		$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
 		$queryMdp->execute();
 		$queryMdp->close();
-		$_SESSION['message'] = "Inscription réussie, veuillez vous connecter";
+		$_SESSION['message'] = "Inscription réussie, veuillez vous connecter ";
 		header("Location: connexion.php");
 	}
 	

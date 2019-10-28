@@ -10,7 +10,7 @@
 					<tr>
 						<td>Entrer un mot de passe
 						</br></td>
-						<td><input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required title="8 caracteres minimum, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial" name="motdepasse" /></td>
+						<td><input type="password"  required title="8 caracteres minimum, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial" name="motdepasse" /></td>
 					</tr>
 					<tr>
 						<td>Confirmer votre mot de passe </td>
@@ -35,3 +35,4 @@
 		</fieldset>
 	</form>
 </html>
+<!-- pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" --> 
