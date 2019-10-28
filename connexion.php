@@ -13,7 +13,7 @@
 						<td><input type="password" name="mdp" /></td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="Inscription" name="btnConnexion"></td>
+						<td><input type="submit" value="Connexion" name="btnConnexion"></td>
 					</tr>
 					<tr>
 					<td>	<?php if (isset ($_SESSION['message']))

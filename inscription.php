@@ -5,19 +5,18 @@
 				<table>
 					<tr>
 						<td>Entrer un utilisateur</td> 
-						<td><input type="text" name="utilisateur"autofocus/></td>
+						<td><input type="text" name="utilisateur" pattern="[A-Za-z0-9]+"  required title="Lettres ou chiffre uniquement" autofocus/></td>
 					</tr>
 					<tr>
-						<td>Entrer un mot de passe</td>
-						<td><input type="password" name="motdepasse" /></td>
-
+						<td>Entrer un mot de passe
+						</br></td>
+						<td><input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required title="8 caracteres minimum, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial" name="motdepasse" /></td>
 					</tr>
-<tr>
+					<tr>
 						<td>Confirmer votre mot de passe </td>
 						<td><input type="password" name="mdpConfirm" /></td>
-
 					</tr>
-<tr>
+					<tr>
 						<td>Entrer votre adresse mail</td>
 						<td><input type="email" name="adresseMail" /></td>
 
@@ -27,8 +26,9 @@
 					</tr>
 					<tr>
 						<td><?php session_start(); 
-							if (isset($_SESSION['erreur'])){
+							if (isset($_SESSION['erreur'])){ // Affiche les erreurs
 								echo $_SESSION['erreur'];
+								$_SESSION['erreur'] =""; // ràz de la variable
 							}?></td>
 					</tr>
 				</table>
