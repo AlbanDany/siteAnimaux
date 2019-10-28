@@ -17,7 +17,7 @@
 	$sqlCheck = 'SELECT nom, email,idUser FROM utilisateur WHERE nom = "'.$user.'" OR email= "'.$email.'"'; //Permet de récupérer user et email si ils sont pareils
 	$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
 	$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
-	$idUser = 1;
+	$idUser = 1; //Obligé de l'inscrire en dur
 	$query = $mysqli->prepare('INSERT INTO utilisateur (idUser, nom, mdp, idBestiaire, email,confirmKey,actif,dateDebut) VALUES (?,?,?,?,?,?,?,?)'); //Prepare la requete d'insertion de données
 	$query->bind_param('ssssssss',$id, $user, $mdp, $id, $email,$key,$actif,$dateJour); // On rentre les paramètres : id correspond a une valeur NULL
 	

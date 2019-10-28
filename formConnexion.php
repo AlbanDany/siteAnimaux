@@ -24,7 +24,7 @@ if (empty($user) || empty($_POST['mdp']) ) //Oublie d'un champ
 }
 else if ($dateJour > $dateFin){ //Le mot de passe a plus de 3 mois
 			$_SESSION['message'] = "Mot de passe expiré";
-			header("Location: nouveaumdp.php");
+			header("Location: nouveaumdp.php?user='$user'"); //revoie du user par GET
 		}
 else if ($user == $mdpbdd['nom'] && $mdpbdd['actif'] == 1){ //L'utilisateur est correct
 	if (password_verify ($_POST['mdp'], $mdpbdd['mdp'])){ // Le mot de passe est correct
