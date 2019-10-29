@@ -12,14 +12,17 @@
 	$id = null;
 	
 
-	$token = bin2hex(random_bytes(16));
-	
+
+	$token = bin2hex(random_bytes(32));
+
+
+
 	
 	$sqlCheck = $bdd->query("SELECT nom, email,idUser FROM utilisateur WHERE nom = '".$user."' OR email= '".$email."' ");
 	$sqlCheck->execute();
 	$resCheck = $sqlCheck->fetch();
 	
-	$idUser = 1; //Obligé de l'inscrire en dur
+	
 	
 	function insert_mdp($bdd,$idUser,$mdp){	
 		
@@ -66,6 +69,8 @@
 	$query->bindParam(':actif', $actif);
 	// $query->bindParam(':dateDebut', now());
 	$query->execute();
+
+	return $bdd->lastInsertId();
 }
 	
 	// $queryuser = $mysqli->prepare('SELECT idUser FROM utilisateur WHERE nom = ?'); 
@@ -97,8 +102,9 @@
 	}
 	else //Si l'utilisateur n'existe pas, l'email n'est pas utilisé, et les mdp correspodent 
 	{		
-		insert_user($bdd,$user,$email,$token,$actif);
-		insert_mdp($bdd,$idUser,$mdp);
+		$userID = insert_user($bdd,$user,$email,$token,$actif);
+		echo $userID;
+		insert_mdp($bdd,$userID,$mdp);
 		$_SESSION['message'] = "Inscription réussie, veuillez vous connecter ";
 		//header("Location: connexion.php");
 	}
