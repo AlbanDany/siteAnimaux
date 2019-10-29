@@ -1,25 +1,35 @@
 <?php
 require_once 'connexionbdd.php';
-	$mdp = "monmdp";
-	$iduser= 1;
+	$user = "monUser";
+	$email = "monemail@email.fr";
+	$token = 12324569;
+	$actif = 0;
 
-
-	$queryMdp = $bdd->prepare("INSERT INTO motdepasse (
-		idMotdepasse,
-		mdp,
-		dateDebut,
-		idUser	
-		) 
-		VALUES (
-		NULL,
-		:mdp,
-		now(),
-		:idUser
-		)");
-	$queryMdp->bindParam(':mdp', $mdp);
-	$queryMdp->bindParam(':idUser', $idUser);	
-	$queryMdp->execute();
-
+	$query = $bdd->prepare('INSERT INTO utilisateur 
+							(
+							idUser, 
+							nom,  
+							idBestiaire, 
+							email,
+							confirmKey,
+							actif
+							) 
+							VALUES 
+							(
+							NULL,
+							:nom, 
+							NULL, 
+							:email, 
+							:token, 
+							:actif 
+							)'); //Prepare la requete d'insertion de données	
+	$query->bindParam(':nom', $user);
+	$query->bindParam(':email', $email);
+	$query->bindParam(':token', $token);
+	$query->bindParam(':actif', $actif);
+	// $query->bindParam(':dateDebut', now());
+	$query->execute();
+	
 
 
 

@@ -3,14 +3,17 @@
 	$bdd = new PDO('mysql:host=localhost;dbname=siteanimaux', 'root', '');
 	// On assaini les données, et on crypte le mdp
 	$user = test_input($_POST['utilisateur']);	
-	$email = test_input($_POST['adresseMail']);
-	$mdp = password_hash($_POST['motdepasse'], PASSWORD_BCRYPT);
+	$email = $_POST['adresseMail'];
 	$actif = 0;
-	$id = null;
-	$key='';
-	$token = gen_cle($key);
+
+	$mdp = password_hash($_POST['motdepasse'], PASSWORD_BCRYPT);
 	
-	//$dateJour= date('Y-m-d');
+	
+	$id = null;
+	
+
+	$token = bin2hex(random_bytes(16));
+	
 	
 	$sqlCheck = $bdd->query("SELECT nom, email,idUser FROM utilisateur WHERE nom = '".$user."' OR email= '".$email."' ");
 	$sqlCheck->execute();
@@ -36,6 +39,34 @@
 	$queryMdp->bindParam(':idUser', $idUser);	
 	$queryMdp->execute();
 	}
+
+	function insert_user($bdd,$user,$email,$token,$actif){
+	
+	$query = $bdd->prepare('INSERT INTO utilisateur 
+						(
+						idUser, 
+						nom,  
+						idBestiaire, 
+						email,
+						confirmKey,
+						actif
+						) 
+						VALUES 
+						(
+						NULL,
+						:nom, 
+						NULL, 
+						:email, 
+						:token, 
+						:actif 
+						)'); //Prepare la requete d'insertion de données	
+	$query->bindParam(':nom', $user);
+	$query->bindParam(':email', $email);
+	$query->bindParam(':token', $token);
+	$query->bindParam(':actif', $actif);
+	// $query->bindParam(':dateDebut', now());
+	$query->execute();
+}
 	
 	// $queryuser = $mysqli->prepare('SELECT idUser FROM utilisateur WHERE nom = ?'); 
 	// $queryuser->bind_param('i', $user); 
@@ -80,40 +111,8 @@
 	  return $resCheck;
 	}
 	
-	function gen_cle($key){
-		for ($i = 0; $i<16; $i++){
-			$temp = mt_rand(0,9);
-			$key .= $temp;
-		}
-		return $key;		
-	}
 	
-	function insert_user($bdd,$user,$email,$token,$actif){
 	
-	$query = $bdd->prepare('INSERT INTO utilisateur 
-							(
-							idUser, 
-							nom,  
-							idBestiaire, 
-							email,
-							confirmKey,
-							actif
-							) 
-							VALUES 
-							(
-							NULL,
-							:nom, 
-							NULL, 
-							:email, 
-							:token, 
-							:actif 
-							'); //Prepare la requete d'insertion de données	
-	$query->bindParam(':nom', $user);
-	$query->bindParam(':email', $email);
-	$query->bindParam(':token', $token);
-	$query->bindParam(':actif', $actif);
-	// $query->bindParam(':dateDebut', now());
-	$query->execute();
-	}
+
 
 	?>
