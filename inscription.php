@@ -10,11 +10,11 @@
 					<tr>
 						<td>Entrer un mot de passe
 						</br></td>
-						<td><input type="password"  required title="8 caracteres minimum, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial" name="motdepasse" /></td>
+						<td><input type="text"  required title="8 caracteres minimum, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial" name="motdepasse" /></td>
 					</tr>
 					<tr>
 						<td>Confirmer votre mot de passe </td>
-						<td><input type="password" name="mdpConfirm" /></td>
+						<td><input type="text" name="mdpConfirm" /></td>
 					</tr>
 					<tr>
 						<td>Entrer votre adresse mail</td>

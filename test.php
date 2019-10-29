@@ -1,23 +1,56 @@
 <?php
-
 require_once 'connexionbdd.php';
-$sql = 'SELECT nom,mdp,actif,dateDebut FROM utilisateur WHERE nom="oui"';
-$result = $mysqli->query($sql) or die($mysqli->error);
-$mdpbdd = mysqli_fetch_array($result,MYSQLI_ASSOC);
-
-$date = date_create($mdpbdd['dateDebut']);
-$dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
-echo date_format($dateFin, 'Y-m-d'), "<br>";
+	$mdp = "monmdp";
+	$iduser= 1;
 
 
-$date = date_create($mdpbdd['dateDebut']);
-		$dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
-		$dateJour= date("Y-m-d");
-echo $dateJour;
-if ($dateFin <= $dateJour){
-			$_SESSION['message'] = "Mot de passe expiré";
-			header("Location: connexion.php");
-		}
+	$queryMdp = $bdd->prepare("INSERT INTO motdepasse (
+		idMotdepasse,
+		mdp,
+		dateDebut,
+		idUser	
+		) 
+		VALUES (
+		NULL,
+		:mdp,
+		now(),
+		:idUser
+		)");
+	$queryMdp->bindParam(':mdp', $mdp);
+	$queryMdp->bindParam(':idUser', $idUser);	
+	$queryMdp->execute();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $sql = 'SELECT nom,mdp,actif,dateDebut FROM utilisateur WHERE nom="oui"';
+// $result = $mysqli->query($sql) or die($mysqli->error);
+// $mdpbdd = mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+// $date = date_create($mdpbdd['dateDebut']);
+// $dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
+// echo date_format($dateFin, 'Y-m-d'), "<br>";
+
+
+// $date = date_create($mdpbdd['dateDebut']);
+		// $dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
+		// $dateJour= date("Y-m-d");
+// echo $dateJour;
+// if ($dateFin <= $dateJour){
+			// $_SESSION['message'] = "Mot de passe expiré";
+			// header("Location: connexion.php");
+		//}
 
 	// $headers = 'From: Experditeur <example@mail.com>' . "\r\n";	
 	// $headers .= "X-Mailer: PHP ".phpversion()."\n";
