@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 17 oct. 2019 à 16:30
+-- Généré le :  mar. 29 oct. 2019 à 12:29
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -82,13 +82,39 @@ CREATE TABLE `dangerosite` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `motdepasse`
+--
+
+CREATE TABLE `motdepasse` (
+  `idMotdepasse` int(11) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
+  `dateDebut` date NOT NULL,
+  `idUser` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `motdepasse`
+--
+
+INSERT INTO `motdepasse` (`idMotdepasse`, `mdp`, `dateDebut`, `idUser`) VALUES
+(4, 'monmdp', '2019-10-29', 1),
+(5, '$2y$10$sljxJZPIDu.yKNpaUfIV2.ooBqPE7c63omo2RsLuia/TaA8si9x.S', '2019-10-29', 1),
+(6, '$2y$10$5gYMBlhxOtze9PwtPS3pbezmjKGcYdKZxNE1H.YdoGEKeV4FVB9oW', '2019-10-29', 1),
+(7, '$2y$10$JHai/1n0yzoJCEKCY.BxG.cv7iXs.lgRcoH5mNXoUlWK6QhG9MnWm', '2019-10-29', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `utilisateur`
 --
 
 CREATE TABLE `utilisateur` (
+  `idUser` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `mdp` varchar(255) NOT NULL,
-  `idBestiaire` int(11) NOT NULL
+  `idBestiaire` int(11) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `confirmKey` int(16) NOT NULL,
+  `actif` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -120,10 +146,16 @@ ALTER TABLE `dangerosite`
   ADD PRIMARY KEY (`idDanger`);
 
 --
+-- Index pour la table `motdepasse`
+--
+ALTER TABLE `motdepasse`
+  ADD PRIMARY KEY (`idMotdepasse`);
+
+--
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`nom`);
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -133,7 +165,17 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `motdepasse`
+--
+ALTER TABLE `motdepasse`
+  MODIFY `idMotdepasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
