@@ -1,73 +1,8 @@
 <?php
 require_once 'connexionbdd.php';
-	$user = "monUser";
-	$email = "monemail@email.fr";
-	$token = 12324569;
-	$actif = 0;
+	$sqlMdp = $bdd->query( "SELECT mdp FROM motdepasse AS m1 LEFT OUTER JOIN motdepasse AS m2 ON m1.dateDebut = m2.max(m2.dateDebut) WHERE idUser = 16");
 
-	$query = $bdd->prepare('INSERT INTO utilisateur 
-							(
-							idUser, 
-							nom,  
-							idBestiaire, 
-							email,
-							confirmKey,
-							actif
-							) 
-							VALUES 
-							(
-							NULL,
-							:nom, 
-							NULL, 
-							:email, 
-							:token, 
-							:actif 
-							)'); //Prepare la requete d'insertion de données	
-	$query->bindParam(':nom', $user);
-	$query->bindParam(':email', $email);
-	$query->bindParam(':token', $token);
-	$query->bindParam(':actif', $actif);
-	// $query->bindParam(':dateDebut', now());
-	$query->execute();
-	
+	$dataMdp = $sqlMdp->fetch();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $sql = 'SELECT nom,mdp,actif,dateDebut FROM utilisateur WHERE nom="oui"';
-// $result = $mysqli->query($sql) or die($mysqli->error);
-// $mdpbdd = mysqli_fetch_array($result,MYSQLI_ASSOC);
-
-// $date = date_create($mdpbdd['dateDebut']);
-// $dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
-// echo date_format($dateFin, 'Y-m-d'), "<br>";
-
-
-// $date = date_create($mdpbdd['dateDebut']);
-		// $dateFin = date_add($date, date_interval_create_from_date_string('3 months'));
-		// $dateJour= date("Y-m-d");
-// echo $dateJour;
-// if ($dateFin <= $dateJour){
-			// $_SESSION['message'] = "Mot de passe expiré";
-			// header("Location: connexion.php");
-		//}
-
-	// $headers = 'From: Experditeur <example@mail.com>' . "\r\n";	
-	// $headers .= "X-Mailer: PHP ".phpversion()."\n";
-	// $headers .= "X-Priority: 1 \n";
-	// $headers .= "Mime-Version: 1.0\n";
-	// $headers .= "Content-Transfer-Encoding: 8bit\n";
-	// $headers .= "Content-type: text/html; charset= utf-8\n";
-	// $headers .= "Date:" . date("D, d M Y h:s:i") . " +0200\n";	
-// mail('albandany1@gmail.com',"hey", "ca va", $headers);
+	echo $dataMdp['mdp'];
 ?>

@@ -18,7 +18,7 @@
 					</tr>
 					<tr>
 						<td>Entrer votre adresse mail</td>
-						<td><input type="email" name="adresseMail" /></td>
+						<td><input type="email" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$" name="adresseMail" /></td>
 
 					</tr>
 					<tr>

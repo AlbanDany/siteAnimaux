@@ -6,7 +6,7 @@
 				<table>
 					<tr>
 						<td>Utilisateur</td> 
-						<td><input type="text" name="user"autofocus/></td>
+						<td><input type="text"  pattern="[A-Za-z0-9]+" name="user"autofocus/></td>
 					</tr>
 					<tr>
 						<td>Mot de passe</td>
@@ -16,10 +16,12 @@
 						<td><input type="submit" value="Connexion" name="btnConnexion"></td>
 					</tr>
 					<tr>
-					<td>	<?php if (isset ($_SESSION['message']))
-					{
+					<td>	
+						<?php if (isset ($_SESSION['message']))
+						{
 							echo $_SESSION['message'];
-					} ?>
+							$_SESSION['message'] = '';
+						} ?>
 					</td>
 					</tr>
 				</table>

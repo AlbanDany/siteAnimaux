@@ -14,7 +14,6 @@
 
 
 	$sqlCheck = $bdd->query("SELECT nom, email,idUser FROM utilisateur WHERE nom = '".$user."' OR email= '".$email."' ");
-	$sqlCheck->execute();
 	$resCheck = $sqlCheck->fetch();
 
 //On test et vérifie les erreurs
