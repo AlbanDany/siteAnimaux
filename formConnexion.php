@@ -7,10 +7,10 @@ $mdp = password_hash('"'.$_POST['mdp'].'"', PASSWORD_BCRYPT);
 
 
 
-$sql = $bdd->query( "SELECT id,nom,actif, FROM utilisateur WHERE nom ='".$user."'");
+$sql = $bdd->query( "SELECT idUser,nom,actif FROM utilisateur WHERE nom = '$user' ");
 $dataUser = $sql->fetch();
 
-$sqlMdp = $bdd->query( "SELECT mdp, dateDebut FROM motdepasse WHERE idUser = '".$dataUser['id']."'");
+$sqlMdp = $bdd->query('SELECT mdp FROM motdepasse WHERE dateDebut = (SELECT max(dateDebut) FROM motdepasse WHERE idUser = 	"'.$dataUser['id'].'"  )');
 $dataMdp = $sqlMdp->fetch();
 
 
@@ -44,7 +44,7 @@ if ($dataUser['actif'] == 0)
 }
 
 if ($user == $dataUser['nom'] && $dataUser['actif'] == 1){ //L'utilisateur est correct
-	if (password_verify $mdp, $dataMdp['mdp'])) // Le mot de passe est correct
+	if (password_verify ($mdp, $dataMdp['mdp'])) // Le mot de passe est correct
 	{ 
 		header("Location: index.php");
 	}
