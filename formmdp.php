@@ -8,17 +8,19 @@
 	$mdpConfirm = test_input($_POST['mdpConfirm']);
 	$mdphash = password_hash($_POST['motdepasse'], PASSWORD_BCRYPT);
 	
-	$sqlCheck = 'SELECT idUser FROM utilisateur WHERE nom = "'.$user.'"'; //Permet de récupérer user 
-	$resCheck = $mysqli->query($sqlCheck) or die($mysqli->error);
-	$data = mysqli_fetch_array($resCheck,MYSQLI_ASSOC);
+	$sqlCheck = $bdd->query('SELECT idUser FROM utilisateur WHERE nom = "'.$user.'"'); //Permet de récupérer user 
+	$data = $sqlCheck->fetch();
 	
 	$idUser = $data['idUser'];
 	
-	$queryMdp = $mysqli->prepare('UPDATE utilisateur SET mdp=? WHERE idUser = ?');
-	$queryMdp->bind_param('ss',$mdphash, $idUser); // On rentre les paramètres 
+	$queryMdp = $bdd->prepare('UPDATE utilisateur SET mdp= :mdp WHERE idUser = :idUser');
+	$queryMdp->bindParam(':mdp',$mdphash);
+	$queryMdp->bindParam(':idUser',$idUser); 
+	$queryMdp->execute();// On rentre les paramètres 
+	
 	if (empty($user) || empty($_POST['motdepasse']) || empty($email) ) //Oubli d'un champs
 	{
 		$_SESSION['erreur'] = "Vous devez remplir tous les champs";
-		header("Location: inscription.php");
+		return header("Location: inscription.php");
 	}
 ?>

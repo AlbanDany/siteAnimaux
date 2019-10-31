@@ -2,7 +2,8 @@
 session_start();
 if (isset ($_SESSION['User'])){
 	echo '<h1>Bienvenue "'.$_SESSION['User'].'" </h1>
-	<a href="deconnexion.php"> Déconnexion </a>';
+	<a href="deconnexion.php"> Déconnexion </a>
+	<a href="nouveaumdp.php"> Changer de mot de passe </a>';
 }
 else{
 	echo'
